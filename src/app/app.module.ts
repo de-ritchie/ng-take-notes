@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutes } from './app.routes'
 
 import { AppComponent } from './app.component';
+// import { TestComponent } from './test.component';
+import { AuthGuardService } from './shared/services/auth-guard.service';
 
 @NgModule({
   imports:      [
@@ -15,7 +17,11 @@ import { AppComponent } from './app.component';
     AppRoutes
   ],
   declarations: [ 
-    AppComponent 
+    AppComponent, 
+    // TestComponent
+  ],
+  providers: [
+    AuthGuardService
   ],
   bootstrap:    [ AppComponent ]
 })
