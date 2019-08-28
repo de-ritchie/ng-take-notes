@@ -1,22 +1,36 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
 
-  constructor(public router: Router){}
+  loginStatus: BehaviorSubject<boolean>;
+
+  constructor(public router: Router){
+
+    this.loginStatus = new BehaviorSubject<boolean>(this.isLoggedIn());
+  }
+
+  getLogginStatus(): BehaviorSubject<boolean> {
+    return this.loginStatus;
+  }
 
   isLoggedIn(){
     let token = localStorage.getItem('token');
     if(token){
       return true;
     }
-    this.router.navigate(['login']);
     return false;
   }
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
-    return this.isLoggedIn();
+    
+    let status = this.isLoggedIn();
+    if(!status){
+      this.router.navigate(['login']);
+    }
+    this.loginStatus.next(status);
+    return status;
   }
 }

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { LoginRoutes } from './login.routes';
 import { LoginComponent } from './login/login.component';
-import { MatModule } from '../mat-module/mat.module';
+import { MatModule } from '../../shared/modules/mat-module/mat.module';
 
 @NgModule({
   imports: [
